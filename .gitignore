@@ -1,0 +1,8 @@
+/node_modules
+/vendor
+/.idea
+.idea/
+.env
+datafont.json
+font.json
+listfont.json

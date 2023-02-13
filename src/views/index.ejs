@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="/home/images/favicon.ico">
+    <link rel="stylesheet" href="/mdb/css/mdb.min.css">
+    <link rel="stylesheet" href="/mdb/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/home/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/mdb/js/mdb.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Tool Tạo Mã Việt Hoá</title>
+</head>
+
+<body class="bg-dark">
+    <div class="fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Tool Tạo Mã Việt Hoá</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="body-container main container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col">
+                            
+                              <div class="form-group shadow-textarea">
+                                <label class="text-default label_main">Nhập Glyphs</label>
+                                <textarea style="color: white; background-color: transparent;" id="inputGlyphs" class= "inputGlyphs  form-control z-depth-1" rows="5"></textarea>
+                               
+                              </div>
+                            
+                        </div>
+                    </div>
+                    <div class="layout  style2">
+                        <div class="row">
+                            <div onclick="creatCode()" id="create" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Tạo Mã</button></div>
+                            <div onclick="filterGlyphs()" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Lọc
+                                    Glyphs</button></div>
+                            <div onclick="RenderCreateDotlessi()" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Tạo Dotlessi</button></div>
+                            <div onclick="createHornRender()" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Tạo Horn</button></div>
+                            <div onclick="copyToClip()" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Copy</button></div>
+                            <div onclick="resetTextArea()" class="col d-grid gap-4"><button type="button"
+                                    class="btn btn-default btn-block">Tạo Lại</button></div>
+                            
+
+
+                        </div>
+                    </div>
+                    <div class="row style">
+                        <div class="col">
+                            <select id="styleCharater" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." >
+                                <% let dataCharacterFind=data.find(o=> o.name === "Character") %>
+                                    <% let dataCharacter=dataCharacterFind.data %>
+                                        <% for(var i=0; i < dataCharacter.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataCharacter[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Kiểu chữ</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleGrave1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataGraveFind=data.find(o=> o.name === "Grave") %>
+                                    <% let dataGrave=dataGraveFind.data %>
+                                        <% for(var i=0; i < dataGrave.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataGrave[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Huyền</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleAcute1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataAcuteFind=data.find(o=> o.name === "Acute") %>
+                                    <% let dataAcute=dataAcuteFind.data %>
+                                        <% for(var i=0; i < dataAcute.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataAcute[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Sắc</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleTilde1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+
+                                <% let dataTildeFind=data.find(o=> o.name === "Tilde") %>
+                                    <% let dataTilde=dataTildeFind.data %>
+                                        <% for(var i=0; i < dataTilde.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataTilde[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Ngã</label>
+
+                        </div>
+                    </div>
+                    <div class="row style">
+                        <div class="col">
+                            <select id="styleHoi1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataHoiFind=data.find(o=> o.name === "Hoi") %>
+                                    <% let dataHoi=dataHoiFind.data %>
+                                        <% for(var i=0; i < dataHoi.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataHoi[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Hỏi</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleDot1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataNangFind=data.find(o=> o.name === "Nang") %>
+                                    <% let dataNang=dataNangFind.data %>
+                                        <% for(var i=0; i < dataNang.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataNang[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Nặng</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleCir" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataCircumflexFind=data.find(o=> o.name === "Circumflex") %>
+                                    <% let dataCircumflex=dataCircumflexFind.data %>
+                                        <% for(var i=0; i < dataCircumflex.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataCircumflex[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Â</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleBreve" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataBreveFind=data.find(o=> o.name === "Breve") %>
+                                    <% let dataBreve=dataBreveFind.data %>
+                                        <% for(var i=0; i < dataBreve.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataBreve[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Ă</label>
+
+                        </div>
+                    </div>
+                    <div class="row style">
+                        <div class="col">
+                            <select id="styleGrave2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataGrave.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataGrave[i]==="grave.ss01" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataGrave[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Huyền 2</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleAcute2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataAcute.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataAcute[i]==="acute.ss01" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataAcute[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Sắc 2</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleTilde2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataTilde.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataTilde[i]==="tilde.ss01" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataTilde[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Ngã 2</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleHoi2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataHoi.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataHoi[i]==="hookabovecomb.case.ss01" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataHoi[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Hỏi 2</label>
+
+                        </div>
+                    </div>
+                    <div class="row style">
+                        <div class="col">
+                            <select id="styleHorn1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataHornFind=data.find(o=> o.name === "Horn") %>
+                                    <% let dataHorn=dataHornFind.data %>
+                                        <% for(var i=0; i < dataHorn.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataHorn[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Móc Hoa</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleHorn2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataHorn.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataHorn[i]==="horncomb" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataHorn[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Móc Thường</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="creatHorn" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataMakeHornFind=data.find(o=> o.name === "MakeHorn") %>
+                                    <% let dataMakeHorn=dataMakeHornFind.data %>
+                                        <% for(var i=0; i < dataMakeHorn.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataMakeHorn[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Tạo Horn</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleFeatures" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataFeaturesFind=data.find(o=> o.name === "Features") %>
+                                    <% let dataFeatures=dataFeaturesFind.data %>
+                                        <% for(var i=0; i < dataFeatures.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataFeatures[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Kiểu Features</label>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row style">
+                        <div class="col">
+                            <select id="styleHyphen1" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataHyphenFind=data.find(o=> o.name === "Hyphen") %>
+                                    <% let dataHyphen=dataHyphenFind.data %>
+                                        <% for(var i=0; i < dataHyphen.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataHyphen[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Đ Hoa</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleHyphen2" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% for(var i=0; i < dataHyphen.length; i++) { %>
+
+                                    <option class="text-dark"  <% if(dataHyphen[i]==="hyphen.sc1" ) {%>
+                                        <%= "selected" %>
+                                            <% } %> >
+
+                                                <%= dataHyphen[i] %>
+                                    </option class="text-dark" >
+                                    <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dấu Đ Thường</label>
+
+                        </div>
+                        <div class="col">
+                            <select id="styleDotlessi" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                             >
+                                <% let dataDotlessiFind=data.find(o=> o.name === "Dotlessi") %>
+                                    <% let dataDotlessi=dataDotlessiFind.data %>
+                                        <% for(var i=0; i < dataDotlessi.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataDotlessi[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Dotlessi</label>
+
+                        </div>
+                        <div class="col">
+                         
+                            <select id="createDotlessi" class="mdb-select md-form colorful-select dropdown-default" searchable="Search and add here..." editable="true"
+                                searchable="Search and add here...">
+                                <% let dataCreateDotlessiFind=data.find(o=> o.name === "CreateDotlessi") %>
+                                    <% let dataCreateDotlessi=dataCreateDotlessiFind.data %>
+                                        <% for(var i=0; i < dataCreateDotlessi.length; i++) { %>
+
+                                            <option class="text-dark" >
+                                                <%= dataCreateDotlessi[i] %>
+                                            </option class="text-dark" >
+                                            <% } %>
+                            </select>
+                            <label  class="mdb-main-label">Tạo Dotlessi</label>
+                        </div>
+
+
+                    </div>
+                </div>
+                
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-4 form-group purple-border">
+                            <div class="form-group shadow-textarea">
+                                <label class="text-default label_main">Mã Việt Hoá</label>
+                                <textarea style="color: white; background-color: transparent;" id="output-text" class= "inputGlyphs  form-control z-depth-1" rows="10"></textarea>
+                               
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    </div>
+
+
+
+</body>
+<script>
+    $(document).ready(function () {
+
+        // Material Select
+        $('.mdb-select').materialSelect({
+        });
+        $('.option class="text-dark" ').css("color" ,"black")
+        $('.mdb-main-label').css("font-size" ,".8rem");
+        $('.mdb-main-label').css("font-weight" ,"bold")
+    })
+
+</script>
+<script src="/home/js/index.js"></script>
+
+</html>

@@ -1,0 +1,25 @@
+.style2 {
+    margin-bottom: 15px;
+}
+
+.main {
+    margin-top: 10px;
+}
+.select-wrapper input.select-dropdown,
+.select-wrapper span.caret {
+    color: white;
+}
+.select-wrapper > label.mdb-main-label.active {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.md-form label,
+.md-form label.active {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+.form-control:focus {
+    background-color: transparent;
+}
